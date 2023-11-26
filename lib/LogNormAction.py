@@ -86,3 +86,20 @@ class LogNormAction:
       total += v * y
     return total
 
+  def plot(self, time, color='red', label='', ax=None):
+    """Plots the action curve over given amount of time.
+    Args:
+        time: timedelta amount of time
+        color: string color of the graph
+        label: string label of the graph
+        ax: axis to use for plotting."""
+    start = datetime(2020, 1, 1)
+    end = start + time
+    dates = pd.date_range(start, end, freq='min')
+    values = self.valuesAt([start], [1], dates)
+    df = pd.DataFrame({'date': dates, 'values': values})
+    ax = df.plot(ax=ax, x='date', y='values',
+                 figsize=(5, 2) if ax is None else None,
+                 color=color, label=label)
+    ax.set_xticks(pd.date_range(start, end, freq='10min'), minor=True)
+    ax.grid(which='both', axis='both', ls=':')
