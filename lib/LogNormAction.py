@@ -19,7 +19,7 @@ class LogNormAction:
     self.sigma = sigma
     print("mode %f" % math.exp(self.mu - self.sigma**2))
 
-  def approxErrorFunction(x):
+  def approx_error_function(x):
     """Computes an approximation of the error function (erf).
        https://en.wikipedia.org/wiki/Error_function#Bürmann_series
     """
@@ -30,22 +30,22 @@ class LogNormAction:
     e_2x2 = math.exp(-2 * x * x)
     return 2 / PI_SQRT * math.signum(x) * math.sqrt(1 - e_x2) * (PI_SQRT / 2 + C1 * e_x2 - C2 * e_2x2)
 
-  def quantityUntil(self, at, until):
+  def quantity_until(self, at, until):
     """Computes the cumulative value until date.
        {@linktourl https://en.wikipedia.org/wiki/Log-normal_distribution#Cumulative_distribution_function}
     """
     x = (date - at).total_seconds() / 3600
     if x <= 0.0:
       return 0.0
-    return 0.5 * (1 + approxErrorFunction((math.log(x) - self.mu) / (self.sigma * math.sqrt(2))))
+    return 0.5 * (1 + approx_error_function((math.log(x) - self.mu) / (self.sigma * math.sqrt(2))))
 
-  def quantityWithin(self, dates, values, start, end):
+  def quantity_within(self, dates, values, start, end):
     total = 0.0;
     for dt, v in zip(dates, values):
-      total += v * (quantityUntil(dt, end) - quantityUntil(dt, start))
+      total += v * (quantity_until(dt, end) - quantity_until(dt, start))
     return total
 
-  def valuesAt(self, dates, values, at_dates):
+  def values_at(self, dates, values, at_dates):
     dtv = list(zip(dates, values))
     dtv.sort(key=lambda dtv: dtv[0])
     at_dates = sorted(at_dates)
@@ -74,7 +74,7 @@ class LogNormAction:
         total += v * y
       yield total
 
-  def valueAt(self, dates, values, at):
+  def value_at(self, dates, values, at):
     total = 0.0
     for dt, v in zip(dates, values):
       td = at - dt
