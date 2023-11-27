@@ -46,30 +46,32 @@ class LogNormAction:
       total += v * (quantity_until(dt, end) - quantity_until(dt, start))
     return total
 
+
   def values_at(self, dates, values, at_dates):
     dtv = list(zip(dates, values))
     dtv.sort(key=lambda dtv: dtv[0])
     at_dates = sorted(at_dates)
     w = []
-    MAX_AGE = timedelta(hours=5)
-
+    MAX_AGE = np.timedelta64(5, 'h')
+    win_start = 0
+    win_end = 0
+      
     for at in at_dates:
-      # Remove everything older than 4h from the current window, since that has
+      # Ignore everything older than 4h from the current window, since that has
       # no effect anymore.
-      while len(w) > 0 and at-w[0][0] > MAX_AGE:
-        w.pop(0)
-      # Add new events that happened before at
-      while len(dtv) > 0 and at-dtv[0][0] > MAX_AGE:
-        dtv.pop(0)
-      while len(dtv) > 0 and (at-dtv[0][0]).total_seconds() > 0:
-        w.append(dtv.pop(0))
-      # Compute the value at at by summing up the effect at at of all events
-      # in the window.
+      while win_start < len(dtv) and at-dtv[win_start][0] > MAX_AGE:
+        win_start += 1
+      # Move window end to 'at'
+      win_end = max(win_start, win_end)
+      while win_end < len(dtv) and dtv[win_end][0] < at:
+        win_end += 1
+
+      # Sum up action at 'at' from all events in the window
       total = 0.0
-      for dt, v in w:
+      for i in range(win_start, win_end):
+        dt, v = dtv[i]
         td = at - dt
-        x = td.total_seconds() / 3600
-        # print("x %f %s" % (x, str(td)))
+        x = td / np.timedelta64(1, 'h')
         exp = -math.pow(math.log(x) - self.mu, 2) / (2 * self.sigma**2)
         y = 1 / (x * self.sigma * math.sqrt(2 * math.pi)) * math.exp(exp)
         total += v * y
