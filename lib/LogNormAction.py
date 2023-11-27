@@ -1,5 +1,6 @@
 import datetime as dt
 import pandas as pd
+import numby as np
 import math
 from datetime import time
 from datetime import timedelta
@@ -51,7 +52,6 @@ class LogNormAction:
     dtv = list(zip(dates, values))
     dtv.sort(key=lambda dtv: dtv[0])
     at_dates = sorted(at_dates)
-    w = []
     MAX_AGE = np.timedelta64(5, 'h')
     win_start = 0
     win_end = 0
