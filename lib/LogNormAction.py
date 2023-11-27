@@ -1,7 +1,8 @@
-import datetime as datetime
+import datetime as dt
+import pandas as pd
+import math
 from datetime import time
 from datetime import timedelta
-import math
 
 class LogNormAction:
   def __init__(self, mu=None, sigma=1.0, mode=None):
@@ -93,10 +94,10 @@ class LogNormAction:
         color: string color of the graph
         label: string label of the graph
         ax: axis to use for plotting."""
-    start = datetime(2020, 1, 1)
+    start = dt.datetime(2020, 1, 1)
     end = start + time
     dates = pd.date_range(start, end, freq='min')
-    values = self.valuesAt([start], [1], dates)
+    values = self.values_at([start], [1], dates)
     df = pd.DataFrame({'date': dates, 'values': values})
     ax = df.plot(ax=ax, x='date', y='values',
                  figsize=(5, 2) if ax is None else None,
