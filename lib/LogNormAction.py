@@ -1,6 +1,6 @@
 import datetime as dt
 import pandas as pd
-import numby as np
+import numpy as np
 import math
 from datetime import time
 from datetime import timedelta
