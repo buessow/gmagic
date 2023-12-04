@@ -2,7 +2,7 @@ import numpy as np
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
-from DateTimeInsulin import DateTimeInsulin
+from .DateTimeInsulin import DateTimeInsulin
 
 class TempBasal:
   def __init__(self, start, duration, insulin):

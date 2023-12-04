@@ -1,8 +1,8 @@
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
-from DateTimeInsulin import DateTimeInsulin
-from DateTimeInsulin import TimeInsulin
+from .DateTimeInsulin import DateTimeInsulin
+from .DateTimeInsulin import TimeInsulin
 
 class Profile:
   def __init__(self, name, basal):
