@@ -1,4 +1,5 @@
 import json
+import pytz
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
@@ -44,7 +45,7 @@ class Profile:
       i += 1
       if i == len(self.basal):
         i = 0
-        curr = datetime.combine(curr.date(), time()) + timedelta(days=1)
+        curr = datetime.combine(curr.date(), time(), tzinfo=end.tzinfo) + timedelta(days=1)
       else:
-        curr = datetime.combine(curr.date(), self.basal[i].time)
+        curr = datetime.combine(curr.date(), self.basal[i].time, tzinfo=end.tzinfo)
 
