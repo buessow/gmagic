@@ -12,7 +12,7 @@ class TempBasal:
     self.insulin = None if insulin is None or np.isnan(insulin) else insulin
 
   def __repr__(self):
-    return ('%s-%dmin ' % (self.start.strftime('%Y-%m-%dT%H:%M:%S'), self.duration // timedelta(minutes=1)) +
+    return ('%s-%dmin ' % (str(self.start.strftime), self.duration // timedelta(minutes=1)) +
             ('-' if self.insulin is None else ('%.01f' % self.insulin)))
 
   def remove_zero_duration_temp_basals(tbs):

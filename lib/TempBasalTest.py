@@ -2,9 +2,9 @@ import unittest
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
-from DateTimeInsulin import DateTimeInsulin
-from DateTimeInsulin import TimeInsulin
-from TempBasal import TempBasal
+from .DateTimeInsulin import DateTimeInsulin
+from .DateTimeInsulin import TimeInsulin
+from .TempBasal import TempBasal
 
 class TempBasalTest(unittest.TestCase):
   dt1 = datetime(2020, 3, 1)
