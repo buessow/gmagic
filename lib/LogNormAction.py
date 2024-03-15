@@ -52,7 +52,7 @@ class LogNormAction:
     return total
 
 
-  def values_at(self, dates, values, at_dates):
+  def values_at(self, dates, values, start, at_dates):
     dtv = list(zip(dates, values))
     dtv.sort(key=lambda dtv: dtv[0])
     at_dates = sorted(at_dates)
