@@ -82,12 +82,13 @@ class ExponentialModel:
       i = win_start
       while i < len(values):
         timestamp, value = dates[i], values[i]
+        if timestamp > t: break
         # Calculate insulin used within the window
         insulin_ratio = self.insulin_used(timestamp, last, t)
         total += value * insulin_ratio
         i += 1
-        last = t
-
+      
+      last = t
       results.append(total)
     return results    
 
