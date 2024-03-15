@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 from datetime import timedelta
-from DateTimeInsulin import DateTimeInsulin
+from .DateTimeInsulin import DateTimeInsulin
 
 class DateTimeTest(unittest.TestCase):
   def test_equals(self):

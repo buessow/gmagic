@@ -21,6 +21,10 @@ class LogNormAction:
     self.sigma = sigma
     print("mode %f" % math.exp(self.mu - self.sigma**2))
 
+  @property
+  def args(self):
+    return dict(name=self.name, peak=self.tp, total=self.td)
+
   def approx_error_function(x):
     """Computes an approximation of the error function (erf).
        https://en.wikipedia.org/wiki/Error_function#Bürmann_series
@@ -77,7 +81,7 @@ class LogNormAction:
         total += v * y
       yield total
 
-  def value_at(self, dates, values, at):
+  def value_at(self, dates, values, start, at):
     total = 0.0
     for dt, v in zip(dates, values):
       td = at - dt
@@ -99,7 +103,7 @@ class LogNormAction:
     start = dt.datetime(2020, 1, 1)
     end = start + time
     dates = pd.date_range(start, end, freq='min')
-    values = self.values_at([start], [1], dates)
+    values = self.values_at([start], [1], start, dates)
     df = pd.DataFrame({'date': dates, 'values': values})
     ax = df.plot(ax=ax, x='date', y='values',
                  figsize=(5, 2) if ax is None else None,

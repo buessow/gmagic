@@ -2,10 +2,10 @@ import unittest
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
-from DateTimeInsulin import DateTimeInsulin
-from DateTimeInsulin import TimeInsulin
-from Profile import Profile
-from ProfileSwitch import ProfileSwitch
+from .DateTimeInsulin import DateTimeInsulin
+from .DateTimeInsulin import TimeInsulin
+from .Profile import Profile
+from .ProfileSwitch import ProfileSwitch
 
 class MergeProfileSeriesTest(unittest.TestCase):
   dt1 = datetime(2020, 3, 1)

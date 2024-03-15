@@ -1,12 +1,21 @@
 import unittest
-import LogNormAction as lna
 import datetime as dt
+from .LogNormAction import LogNormAction
 
 class LogNormActionAction(unittest.TestCase):
 
   def test_create(self):
-    a = lna.LogNormAction(3)
+    a = LogNormAction(3)
     t = dt.datetime(2023, 11, 1)
-    self.assertEqual( 0.0, a.value_at([t], [10.0], t))
-    self.assertLess( 0.0, a.value_at([t], [10.0], t + dt.timedelta(hours=1)))
+    self.assertAlmostEqual(0.0, a.value_at([t], [10.0], t, t))
+    self.assertLess(0.0, a.value_at([t], [10.0], t, t + dt.timedelta(hours=1)))
+    
+  def test_values_at(self):
+    a = LogNormAction(mode=dt.timedelta(hours=3))
+    t = dt.datetime(2023, 11, 1)
+    self.assertAlmostEqual(0.0, a.value_at([t], [5.0], t, t))
+    self.assertAlmostEqual(0.08099936958648521, a.value_at([t], [5.0], t, t + dt.timedelta(minutes=30)))
+    self.assertAlmostEqual(0.3714600764604711, a.value_at([t], [5.0], t, t + dt.timedelta(hours=2)))
+    self.assertAlmostEqual(0.4032845408652389, a.value_at([t], [5.0], t, t + dt.timedelta(hours=3)))
+    self.assertAlmostEqual(0.39134904494144485, a.value_at([t], [5.0], t, t + dt.timedelta(hours=3, minutes=50)))
 
