@@ -6,6 +6,7 @@ class LogNormActionAction(unittest.TestCase):
 
   def test_create(self):
     a = LogNormAction(3)
+    self.assertEquals(dict(name='LogNorm', mu=3, sigma=1.0), a.args)
     t = dt.datetime(2023, 11, 1)
     self.assertAlmostEqual(0.0, a.value_at([t], [10.0], t, t))
     self.assertLess(0.0, a.value_at([t], [10.0], t, t + dt.timedelta(hours=1)))

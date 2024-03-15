@@ -6,6 +6,7 @@ from datetime import time
 from datetime import timedelta
 
 class LogNormAction:
+  name = 'LogNorm'
   def __init__(self, mu=None, sigma=1.0, mode=None):
     """Constructor.
     Args:
@@ -23,7 +24,7 @@ class LogNormAction:
 
   @property
   def args(self):
-    return dict(name=self.name, peak=self.tp, total=self.td)
+    return dict(name=self.name, mu=self.mu, sigma=self.sigma)
 
   def approx_error_function(x):
     """Computes an approximation of the error function (erf).
