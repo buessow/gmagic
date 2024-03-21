@@ -20,3 +20,9 @@ class LogNormActionAction(unittest.TestCase):
     self.assertAlmostEqual(0.4032845408652389, a.value_at([t], [5.0], t, t + dt.timedelta(hours=3)))
     self.assertAlmostEqual(0.39134904494144485, a.value_at([t], [5.0], t, t + dt.timedelta(hours=3, minutes=50)))
 
+  def test_str(self):
+    a = LogNormAction(mode=dt.timedelta(hours=2), sigma=0.3)
+    self.assertEqual('LogNorm(120, 0.3)', str(a))
+    self.assertEqual('LogNorm(120, 0.3)', repr(a))
+
+

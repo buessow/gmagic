@@ -15,6 +15,12 @@ class ExponentialModel:
     self.a = 2 * self.tau / self.td
     self.S = 1 / (1 - self.a + (1 + self.a) * math.exp(-self.td / self.tau))
 
+  def __str__(self):
+    return repr(self)
+
+  def __repr__(self):
+    return '%s(%s, %s)' % (self.name, self.peak, self.total)
+
   def insulin_action(self, t):
       """
       Calculates the insulin action at a given time (in minutes).

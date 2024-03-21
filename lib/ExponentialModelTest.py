@@ -42,3 +42,6 @@ class ExponentialModelTest(unittest.TestCase):
         np.testing.assert_almost_equal(double_results, double_expected, 2)
         self.assertAlmostEqual(sum(double_results), 10.0, delta=1e-2)
 
+    def test_str(self):
+      self.assertEqual('Exponential(0:55:00, 6:00:00)', str(self.fiasp))
+

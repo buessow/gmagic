@@ -15,12 +15,20 @@ class LogNormAction:
     """
     if mode is not None and sigma is not None:
       if isinstance(mode, timedelta):
-        mode = mode.total_seconds() / 3600
-      self.mu = math.log(mode) + sigma**2
+        self.mode = mode.total_seconds() / 3600
+      else:
+        self.mode = mode
+      self.mu = math.log(self.mode) + sigma**2
     else:
       self.mu = mu
     self.sigma = sigma
     print("mode %f" % math.exp(self.mu - self.sigma**2))
+
+  def __str__(self):
+    return self.__repr__()
+
+  def __repr__(self):
+    return '%s(%d, %.1f)' % (self.name, int(60*self.mode), self.sigma)
 
   @property
   def args(self):
